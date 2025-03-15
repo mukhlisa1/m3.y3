@@ -10,8 +10,9 @@ class DB_Manager:
         
     def create_tables(self):
         conn = sqlite3.connect(self.database)
+        cur = conn.cursor()
         with conn:
-            conn.execute('''CREATE TABLE projects (
+            conn.execute('''CREATE TABLE IF NOT EXISTS projects (
                             project_id INTEGER PRIMARY KEY AUTOINCREMENT,
                             user_id INTEGER,
                             project_name TEXT NOT NULL,
@@ -19,18 +20,27 @@ class DB_Manager:
                             url TEXT,
                             status_id INTEGER,
                             FOREIGN KEY(status_id) REFERENCES status(status_id)
-                        )''') 
-            conn.execute('''CREATE TABLE skills (
-                            skill_id INTEGER PRIMARY KEY AUTOINCREMENT,
-                            skill_name TEXT
                         )''')
-            conn.execute('''CREATE TABLE project_skills (
+
+            projects = [
+                (1, 'KhaWay', 'Education center', 'https://mukhlisa1.github.io/KhaWay/', 1),
+                (2, 'Flappy Bird', 'Game', 'https://github.com/user/flappybird', 2)
+            ]
+
+            cur.executemany("INSERT INTO projects (user_id, project_name, description, url, status_id) VALUES (?, ?, ?, ?, ?)", projects)
+            
+            conn.execute('''CREATE TABLE IF NOT EXISTS skills (
+                                skill_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                                skill_name TEXT
+                            )''')
+            
+            conn.execute('''CREATE TABLE IF NOT EXISTS project_skills (
                             project_id INTEGER,
                             skill_id INTEGER,
                             FOREIGN KEY(project_id) REFERENCES projects(project_id),
                             FOREIGN KEY(skill_id) REFERENCES skills(skill_id)
                         )''')
-            conn.execute('''CREATE TABLE status (
+            conn.execute('''CREATE TABLE IF NOT EXISTS status (
                             status_id INTEGER PRIMARY KEY AUTOINCREMENT,
                             status_name TEXT
                         )''')
