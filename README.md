@@ -107,6 +107,6 @@
 
 # Как найти бота в тг и проверить его?
  - Токен на бота: @mukhlisakha_bot
- - ![QR код на бота](https://github.com/user-attachments/assets/3f19744e-fbb9-4735-9c64-f2b78dc054fe)
+ - ![QR код на бота](https://github.com/user-attachments/assets/18d21e35-5d0e-4603-98bc-10a2a3a29944)
  - ![Как выглядит бот](https://github.com/user-attachments/assets/987046ea-6bdf-4144-aa0c-1eb89305137b)
 )
